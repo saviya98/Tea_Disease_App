@@ -9,6 +9,7 @@ import Registration from "./components/Registration";
 import Dashboard from "./components/Dashboard";
 
 import { LogBox } from "react-native";
+import TabNavigator from "./Navigation/TabNavigator";
 LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
@@ -57,6 +58,25 @@ function App() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="tabNavigator" //"Dashboard"
+        component={TabNavigator}
+        options={{
+          headerTitle: () => <Header name="Dashboard" />,
+          headerStyle: {
+            height: 70,
+            // borderBottomLeftradius:50,
+            // borderBottomRightradius:50,
+            backgroundColor: "#00e4d0",
+            shadowColor: "#000",
+            elevation: 25,
+          },
+          headerRight: () => (
+            <Button title="Logout" onPress={() => firebase.auth().signOut()} />
+          ),
+          headerShown: false,
+        }}
+      />
+      {/* <Stack.Screen
         name="Dashboard" //"Dashboard"
         component={Dashboard}
         options={{
@@ -74,7 +94,7 @@ function App() {
           ),
           headerShown: false,
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
