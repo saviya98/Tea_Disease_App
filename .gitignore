@@ -10,7 +10,21 @@ npm-debug.*
 *.orig.*
 web-build/
 
-mlrModel.pkl/
+mlrModel.pkl
+humARIMAmodel.pkl
+tempARIMAmodel.pkl
+windARIMAmodel.pkl
 
 # macOS
 .DS_Store
+/backend/__pycache__/blisterIdentification.cpython-310.pyc
+/backend/__pycache__/blistersample.cpython-310.pyc
+/backend/__pycache__/cultivarIdentification.cpython-310.pyc
+/backend/__pycache__/metadata.cpython-310.pyc
+/backend/__pycache__/severitySymptoms.cpython-310.pyc
+/backend/app.py
+/backend/densenet121_new4.hdf5
+/backend/dispersionForecast/__pycache__/gaussianPlumeModel.cpython-310.pyc
+/backend/dispersionForecast/__pycache__/openWeatherMap.cpython-310.pyc
+/backend/dispersionForecast/multipleLinearRegression/__pycache__/mlrModel.cpython-310.pyc
+/backend/keras_model.h5
