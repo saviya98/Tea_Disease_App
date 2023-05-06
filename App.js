@@ -41,12 +41,6 @@ function App() {
           options={{
             headerTitle: () => <Header name="Login" />,
             headerShown: false,
-            headerStyle: {
-              height: 100,
-              backgroundColor: "#00e4d0",
-              shadowColor: "#000",
-              elevation: 25,
-            },
           }}
         />
 
@@ -55,12 +49,7 @@ function App() {
           component={Registration}
           options={{
             headerTitle: () => <Header name="Registration" />,
-            headerStyle: {
-              height: 150,
-              backgroundColor: "#00e4d0",
-              shadowColor: "#000",
-              elevation: 25,
-            },
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
