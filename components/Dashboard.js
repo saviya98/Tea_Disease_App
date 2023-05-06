@@ -1,63 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { firebase } from '../global/firebase';
-import HomeScreen from './Home';
-import BbDateScreen from './BbDate';
-import DispersionPatternScreen from './DispersionPattern';
-import BbMapScreen from './BbMap';
-import BlisterMapAllScreen from './Blister_Map_All';
-import BlisterMapNearScreen from './Blister_Map_Near';
-import * as Notifications from 'expo-notifications';
-import BlisterIdentificationScreen from './Blister_Identification';
-import SeverityScreen from './Severity';
+import React, { useEffect, useState } from "react";
+import { Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { firebase } from "../global/firebase";
+import HomeScreen from "./Home";
+import BbDateScreen from "./BbDate";
+import DispersionPatternScreen from "./DispersionPattern";
+import BbMapScreen from "./BbMap";
+import BlisterMapAllScreen from "./Blister_Map_All";
+import BlisterMapNearScreen from "./Blister_Map_Near";
+import * as Notifications from "expo-notifications";
+import BlisterIdentificationScreen from "./Blister_Identification";
+import SeverityScreen from "./Severity";
 
-import BlisterSampleScreen from './BlisterSample';
-import CultivarScreen from './Cultivar';
+import BlisterSampleScreen from "./BlisterSample";
+import CultivarScreen from "./Cultivar";
 
 const Stack = createStackNavigator();
 
 const headerStyle = {
   height: 100,
-  backgroundColor: '#00e4d0',
-  shadowColor: '#000',
+  backgroundColor: "#085E22",
+  shadowColor: "#000",
   elevation: 25,
 };
 
 console.disableYellowBox = true;
 
 const Dashboard = () => {
-
   const [currentUser, setCurrentUser] = useState(null);
 
   const registerForPushNotificationsAsync = async () => {
-
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
 
     // check whether the device has permision to send notifications
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
 
     // Stop here if the user did not grant permissions
-    if (finalStatus !== 'granted') {
+    if (finalStatus !== "granted") {
       return;
     }
 
     try {
-       // Get the token that uniquely identifies this device
-    const tokenObject = await Notifications.getExpoPushTokenAsync();
-    const token = tokenObject.data;
-    console.log('Token:', token);
-    // save the token to Firebase Firestore
-    const currentUser = firebase.auth().currentUser;
-    const db = firebase.firestore();
-    db.collection('Users').doc(currentUser.uid).update({
-      push_token: token
-    });
-
+      // Get the token that uniquely identifies this device
+      const tokenObject = await Notifications.getExpoPushTokenAsync();
+      const token = tokenObject.data;
+      console.log("Token:", token);
+      // save the token to Firebase Firestore
+      const currentUser = firebase.auth().currentUser;
+      const db = firebase.firestore();
+      db.collection("Users").doc(currentUser.uid).update({
+        push_token: token,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -98,11 +96,14 @@ const Dashboard = () => {
         component={HomeScreen}
         options={{
           headerStyle,
+          headerTintColor: "white",
           headerRight: () => (
-            <Button
-              title="Logout"
+            <TouchableOpacity
+              style={styles.logout}
               onPress={() => firebase.auth().signOut()}
-            />
+            >
+              <Text style={{ color: "white" }}>Logout</Text>
+            </TouchableOpacity>
           ),
         }}
       />
@@ -160,9 +161,12 @@ export default Dashboard;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingBottom: 0,
     paddingTop: 0,
+  },
+  logout: {
+    marginRight: "5%",
   },
 });
