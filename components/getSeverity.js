@@ -37,7 +37,7 @@ const SeverityIdentification = () => {
         name: 'test.jpg',
         type: 'image/jpeg'
       });
-      axios.post('http://192.168.8.101:3009/getCultivar', formData, {
+      axios.post('http://192.168.1.7:3009/getCultivar', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -53,7 +53,7 @@ const SeverityIdentification = () => {
       }).catch((error) => {
         console.log(error);
       });
-      axios.post('http://192.168.8.101:3009/getBlister', formData, {
+      axios.post('http://192.168.1.7:3009/getBlister', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

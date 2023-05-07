@@ -38,7 +38,7 @@ const Cultivar = () => {
         name: 'test.jpg',
         type: 'image/jpeg'
       });
-      axios.post('http://192.168.8.100:3009/getCultivar', formData, {
+      axios.post('http://192.168.1.7:3009/getCultivar', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -54,7 +54,7 @@ const Cultivar = () => {
       }).catch((error) => {
         console.log(error);
       });
-      axios.post('http://192.168.8.100:3009/getBlister', formData, {
+      axios.post('http://192.168.1.7:3009/getBlister', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -126,9 +126,9 @@ const Cultivar = () => {
     <View style={{ flex: 1 }}>
       {/* <Button title='Image Picker' onPress={() => pickImage()} style={{ marginTop: 30 }} /> */}
         <View style={{  justifyContent: 'space-between', paddingHorizontal: 60 ,marginTop: 50 }}>
-            <Button title='Camera' onPress={() => pickImage()} style={{ width: '40%', marginBottom: 20 }} />
+            <Button title='Take a Picture' onPress={() => pickImage()} style={{ width: '40%', marginBottom: 20 }} />
             <View style={{ height: 20 }} />
-            <Button title='Gallery' onPress={() => pickImage()} style={{ width: '40%' }} />
+            <Button title='Upload a Picture' onPress={() => pickImage()} style={{ width: '40%' }} />
         </View>
         <View style={{ alignItems: 'center', marginTop: 15 }}>
             {image && <Image source={{ uri: image }} style={{ width: 300, height: 300, marginTop:50, }} />}
