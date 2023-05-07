@@ -25,7 +25,6 @@ const Blister_Identification = ({ navigation }) => {
   const [blisterData, setBlisterData] = useState(null);
   const [blister, setBlister] = useState(null);
 
-  const [isImageUploaded, setIsImageUploaded] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -61,7 +60,6 @@ const Blister_Identification = ({ navigation }) => {
           console.log("Response ---- ", response.data);
           setCultivarData(response.data);
           setCultivar(response.data.Cultivar[0]);
-          setIsImageUploaded(true);
 
           console.log("Cultivar -> ", response.data.Cultivar[0]);
         })
@@ -159,61 +157,42 @@ const Blister_Identification = ({ navigation }) => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.headerText}>
-        <Text style={styles.header}>Blister Identification View</Text>
-      </View>
       <View style={styles.imageContainer}>
         <ImageViewer
           placeholderImageSource={PlaceholderImage}
           selectedImage={image}
         />
       </View>
-      {/* <View style={styles.footerContainer}> */}
-      {/* <Button
-            title="Take a Picture"
-            onPress={() => pickImage()}
-          />
-          <View style={{ height: 20 }} />
-          <Button
-            title="Upload a Picture"
-            onPress={() => pickImage()}
-          /> */}
-      {/* </View>  */}
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Take a Picture"
-          onPress={() => pickImage()}
-          style={styles.button}
-        />
-        <Button
-          title="Upload a Picture"
-          onPress={() => pickImage()}
-          style={styles.button}
-        />
+      <View style={styles.btnContainer}>
+        <TouchableOpacity onPress={() => pickImage()} style={styles.btn}>
+          <Text style={styles.btnTxt}>Take a Photo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => pickImage()} style={styles.btn}>
+          <Text style={styles.btnTxt}>Upload a Photo</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.txtContainer}>{image && <Text style={styles.textIdentification}>Blister: </Text>}
+      
+      {image && <Text style={styles.textIdentification1}>Blister Identified</Text>}</View>
+
+      <View style={styles.txtContainer}>
+        {image && <Text style={styles.textIdentification}>Cultivar: </Text>}
+        
+        {image && <Text style={styles.textIdentification1}>{cultivar}</Text>}
       </View>
       <View >
-        {image && (
-          <Text >
-            Blister: Blister Identified
-          </Text>
-        )}
+        {image && <TouchableOpacity onPress={() =>
+                navigation.navigate("Severity Symptom Identification")
+              } style={styles.btn1}>
+          <Text style={styles.btnTxt1}>Severity Symptom Identification</Text>
+        </TouchableOpacity>}
+        {image && <TouchableOpacity onPress={() =>
+                navigation.navigate("Dispersion Pattern")
+              } style={styles.btn1}>
+          <Text style={styles.btnTxt1}>Blister Dispersion</Text>
+        </TouchableOpacity>}
       </View>
-
-      <View style={{ alignItems: "center", marginLeft: 40}}>
-        {image && (
-          <Text>
-            Cultivar: {cultivar}
-          </Text>
-        )}
-      </View>
-      <View>
-      {isImageUploaded ? (
-        <View><Button onPress={() => navigation.navigate('Severity Symptom Identification')} title='Severity Symptom Identification'></Button><Button onPress={() => navigation.navigate('Dispersion Pattern')} title='Blister Dispersion'></Button></View>
-      ) : (
-        <View><Button onPress={() => navigation.navigate('Severity Symptom Identification')} title='Severity Symptom Identification'></Button><Button onPress={() => navigation.navigate('Dispersion Pattern')} title='Blister Dispersion'></Button></View>
-     
-      )}
-    </View>
+      
     </View>
 
     // <View style={{ paddingHorizontal: SIZES.padding, paddingVertical: SIZES.padding, backgroundColor: COLORS.white }}>
@@ -265,32 +244,49 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     paddingTop: 20,
-    marginBottom:20
+    marginBottom: -15,
   },
   footerContainer: {
     flex: 1 / 3,
     alignItems: "center",
   },
-  button: {
+  btnContainer: {
     width: "100%",
-    height: 50,
-    backgroundColor: "#FFD700",
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  buttonContainer: {
+    height: "20%",
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
+    justifyContent: "space-evenly",
+    alignSelf: "center",
+    marginBottom:"-3%"
   },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: 10,
+  txtContainer:{
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignSelf: "center",
   },
+
+  btn: {
+    alignSelf: "center",
+    borderColor: "#085E22",
+    borderWidth: 1,
+    borderRadius: 9,
+  },
+  btnTxt: { padding: "3%", fontWeight: "bold", color: "#085E22", fontSize: 19 },
+  btn1: {
+    alignSelf: "center",
+    borderColor: "#085E22",
+    borderWidth: 1,
+    borderRadius: 9,
+    padding:2,
+    marginBottom:"1%",
+    marginTop:"2%"
+  },
+  btnTxt1: { paddingHorizontal: "5%", fontWeight: "bold", color: "#085E22", fontSize: 15 },
+  textIdentification:{
+    fontSize: 20
+  },
+  textIdentification1:{
+    fontSize: 20,
+    fontWeight:"bold"
+  }
 });
 export default Blister_Identification;

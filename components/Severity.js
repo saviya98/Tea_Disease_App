@@ -1,56 +1,82 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, Button, Image } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, Button, StyleSheet, Image } from "react-native";
 import {
-    SafeAreaView,
-    SafeAreaProvider,
-    SafeAreaInsetsContext,
-    useSafeAreaInsets,
-    initialWindowMetrics,
-} from 'react-native-safe-area-context';
+  SafeAreaView,
+  SafeAreaProvider,
+  SafeAreaInsetsContext,
+  useSafeAreaInsets,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 
-import { COLORS, FONTS, SIZES, icons, images } from '../constants';
-import { firebase } from '../global/firebase';
+import { COLORS, FONTS, SIZES, icons, images } from "../constants";
+import { firebase } from "../global/firebase";
 
 const Severity = ({ navigation }) => {
+  const [imageURL, setImageURL] = useState("");
 
-    const [imageURL, setImageURL] = useState('');
-
-    useEffect(() => {
-        const getImageURL = async () => {
-            const imageRef = firebase.firestore().collection('severity').doc('s1');
-            const imageDoc = await imageRef.get();
-            const imageURL = imageDoc.data().sev_img3;
-            setImageURL(imageURL);
-        };
-        getImageURL();
-    }, []);
-
-    console.log(imageURL);
-
-    const downloadImage = async () => {
-        const storageRef = storage().refFromURL(imageURL);
-        const url = await storageRef.getDownloadURL();
-        return url;
+  useEffect(() => {
+    const getImageURL = async () => {
+      const imageRef = firebase.firestore().collection("severity").doc("s1");
+      const imageDoc = await imageRef.get();
+      const imageURL = imageDoc.data().sev_img3;
+      setImageURL(imageURL);
     };
+    getImageURL();
+  }, []);
 
-    return (
-        <><View style={{ paddingHorizontal: SIZES.padding, paddingVertical: SIZES.padding, backgroundColor: COLORS.white }}>
+  console.log(imageURL);
 
-        </View><View style={{ alignItems: 'center', marginLeft: 10, marginTop: 30 }}>
-                {imageURL ? (
-                    <Image source={{ uri: imageURL }} style={{ width: 300, height: 430 }} />
-                ) : (
-                    <Text>Loading...</Text>
-                )}
+  const downloadImage = async () => {
+    const storageRef = storage().refFromURL(imageURL);
+    const url = await storageRef.getDownloadURL();
+    return url;
+  };
 
-                <View style={{ alignItems: 'center', marginLeft: 15, marginTop: 40 }}>
-                    <Text style={{ marginBottom: 20, fontSize: 20, fontWeight: 'bold' }}>Severity Level: Blister Stage</Text>
-                </View>
+  return (
+    <View>
+      <View style={styles.imageContainer}>
+        {imageURL ? (
+          <Image source={{ uri: imageURL }} style={styles.image} />
+        ) : (
+          <Text>Loading...</Text>
+        )}
+      </View>
+      <View style={styles.txtContainer}>
+        {imageURL && (
+          <Text style={styles.textIdentification}>Severity Level: </Text>
+        )}
 
+        {imageURL && (
+          <Text style={styles.textIdentification1}>Blister Stage</Text>
+        )}
+      </View>
+    </View>
+  );
+};
 
-            </View></>
-    )
-}
+const styles = StyleSheet.create({
+  image: {
+    width: 300,
+    height: 400,
+    borderRadius: 18,
+  },
+  imageContainer: {
+    alignItems: "center",
+    padding: "4%",
+  },
+  txtContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignSelf: "center",
+  },
 
+  textIdentification: {
+    fontSize: 20,
+  },
+  textIdentification1: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+});
 
-export default Severity
+export default Severity;
