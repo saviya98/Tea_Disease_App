@@ -110,47 +110,47 @@ const Dashboard = () => {
       <Stack.Screen
         name="Blister Emergence Date"
         component={BbDateScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Dispersion Pattern"
         component={DispersionPatternScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Blister Risk Map"
         component={BbMapScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Blister Map"
         component={BlisterMapAllScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Blister Map(Near locations)"
         component={BlisterMapNearScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Blister Identification"
         component={BlisterIdentificationScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Severity Symptom Identification"
         component={SeverityScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Blister Sample Count"
         component={BlisterSampleScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
       <Stack.Screen
         name="Cultivar"
         component={CultivarScreen}
-        options={{ headerStyle }}
+        options={{ headerTintColor: "white", headerStyle }}
       />
     </Stack.Navigator>
   );
