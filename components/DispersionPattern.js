@@ -27,7 +27,7 @@ const DispersionPattern = () => {
   const [riskCal, setRiskCal] = useState([{}]);
 
   useEffect(() => {
-        fetch("http://192.168.1.7:3009/risk")
+    fetch("http://192.168.1.7:3009/risk")
       .then((res) => res.json())
       .then((riskCal) => {
         setRiskCal(riskCal);
@@ -108,15 +108,17 @@ const DispersionPattern = () => {
             sendRisk(risk);
             return (
               <View style={styles.txtContainer}>
-          <Text style={styles.textIdentification} key={i}>Dispersion Risk Level : </Text>
+                <Text style={styles.textIdentification} key={i}>
+                  Dispersion Risk Level :{" "}
+                </Text>
 
-          <Text style={styles.textIdentification1}>{risk}</Text>
-      </View>
+                <Text style={styles.textIdentification1}>{risk}</Text>
+              </View>
             );
           })
         )}
       </View>
-      <View style={{ alignItems: "center", justifyContent: "center"}}>
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
         <MapView
           //dispplay current user location
           ref={_map}
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignSelf: "center",
-    marginVertical:"2%"
+    marginVertical: "2%",
   },
 
   textIdentification: {
@@ -253,6 +255,6 @@ const styles = StyleSheet.create({
   textIdentification1: {
     fontSize: 20,
     fontWeight: "bold",
-    color:"red"
+    color: "red",
   },
 });
