@@ -50,7 +50,7 @@ const BbDate = () => {
 
 
     useEffect(() => {
-        fetch("http://192.168.8.100:3009/predictions").then(
+        fetch("http://192.168.1.7:3009/predictions").then(
         res => res.json()
         ).then(
             dataARIMA => {

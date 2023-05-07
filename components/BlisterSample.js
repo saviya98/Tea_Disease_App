@@ -42,7 +42,7 @@ const BlisterSample = () => {
         type: 'image/jpeg'
       });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
-      axios.post('http://192.168.8.100:3009/geo', formData, {
+      axios.post('http://192.168.1.7:3009/geo', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -63,7 +63,7 @@ const BlisterSample = () => {
         console.log(error);
       });
 
-      axios.post('http://192.168.8.100:3009/blisterSample', formData, {
+      axios.post('http://192.168.1.7:3009/blisterSample', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

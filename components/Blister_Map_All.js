@@ -72,7 +72,7 @@ const useCurrentLocation = async () => {
   // console.log(current_location.longitude);
 
   /// Loch test ///
-  fetch('http://192.168.8.100:3009/location', {
+  fetch('http://192.168.1.7:3009/location', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
