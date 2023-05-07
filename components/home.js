@@ -32,21 +32,25 @@ const ButtonDetails = [
     id: 2,
     title: "Blister identified near locations",
     location: "Blister Map(Near locations)",
+    image: require("../assets/identi.jpg"),
   },
   {
     id: 3,
     title: "Blister Risk Assessment",
     location: "Blister Risk Map",
+    image: require("../assets/identi.jpg"),
   },
   {
     id: 4,
     title: "Identified all Blister location",
     location: "Blister Map",
+    image: require("../assets/identi.jpg"),
   },
   {
     id: 5,
     title: "Blister Sample Count",
     location: "Blister Sample Count",
+    image: require("../assets/identi.jpg"),
   },
 ];
 
@@ -106,8 +110,6 @@ const Home = ({ navigation }) => {
         data={ButtonDetails}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        // numColumns={2}
-        // columnWrapperStyle={{ justifyContent: "space-between" }}
         style={styles.homeList}
       />
     </View>
@@ -168,5 +170,10 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 9,
+    backgroundColor: "red",
+    marginBottom: "3%",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
 });
