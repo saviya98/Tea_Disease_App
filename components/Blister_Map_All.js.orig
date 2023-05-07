@@ -70,8 +70,13 @@ const Blister_Map_All = () => {
   // console.log(current_location.longitude);
 
   /// Loch test ///
+<<<<<<< HEAD
   fetch('http://192.168.1.7:3009/location', {
+    method: 'POST',
+=======
+  fetch("http://192.168.8.100:3009/location", {
     method: "POST",
+>>>>>>> origin/master
     headers: {
       "Content-Type": "application/json",
     },
