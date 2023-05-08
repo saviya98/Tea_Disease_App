@@ -27,7 +27,7 @@ const DispersionPattern = () => {
   const [riskCal, setRiskCal] = useState([{}]);
 
   useEffect(() => {
-    fetch("http://192.168.8.100:3009/risk")
+    fetch("http://192.168.1.21:3009/risk")
       .then((res) => res.json())
       .then((riskCal) => {
         setRiskCal(riskCal);

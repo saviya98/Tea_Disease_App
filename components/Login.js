@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
   inputInside: {
     paddingLeft: 10,
     width: width,
-    opacity: 1,
   },
   textInputContainer: {
     width: "90%",
@@ -152,7 +151,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginHorizontal: "2%",
     borderRadius: 10,
-    opacity: 0.6,
   },
   backgroundImage: {
     flex: 1,

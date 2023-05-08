@@ -10,7 +10,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
       <Tab.Screen
-        name="Home"
+        name="Dashboard"
         component={Dashboard}
         initialParams={{ icon: "home" }}
         options={{ headerShown: false }}

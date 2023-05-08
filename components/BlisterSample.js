@@ -53,14 +53,14 @@ const BlisterSample = () => {
       });
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       axios
-        .post("http://192.168.8.100:3009/geo", formData, {
+        .post("http://192.168.1.21:3009/geo", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then(async (response) => {
           setImage(result.assets[0].uri);
-          // console.log("Response ",response);
+          console.log("Response ", response.data);
           setGeoData(response.data);
           setLatitude(response.data.lat[0]);
           setLongitude(response.data.lon[0]);
@@ -75,7 +75,7 @@ const BlisterSample = () => {
         });
 
       axios
-        .post("http://192.168.8.100:3009/blisterSample", formData, {
+        .post("http://192.168.1.21:3009/blisterSample", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -140,13 +140,15 @@ const BlisterSample = () => {
 
   if (image && translucent && blisterUpper && blisterUnder && necro) {
     return (
-      <BlisterSampleResult
-        image={image}
-        translucent={translucent}
-        necro={necro}
-        blisterUpper={blisterUpper}
-        blisterUnder={blisterUnder}
-      />
+      <View style={styles.containerRes}>
+        <BlisterSampleResult
+          image={image}
+          translucent={translucent}
+          necro={necro}
+          blisterUpper={blisterUpper}
+          blisterUnder={blisterUnder}
+        />
+      </View>
     );
   } else if (hasGalleryPermission === false) {
     return <Text>No access to Internal Storage</Text>;
@@ -159,7 +161,7 @@ const BlisterSample = () => {
 
         <View style={styles.imageContainer}>
           <Image
-            source={require("../assets/IMG_3875.jpg")}
+            source={require("../assets/loginbac.jpg")}
             style={styles.image}
           />
         </View>
@@ -182,6 +184,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: width / 23,
+    paddingTop: height / 60,
+    marginBottom: height / 10,
+  },
+  containerRes: {
+    flex: 1,
     paddingTop: height / 60,
     marginBottom: height / 10,
   },
