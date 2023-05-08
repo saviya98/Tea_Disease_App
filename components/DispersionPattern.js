@@ -107,18 +107,13 @@ const DispersionPattern = () => {
             const myRiskVariable = risk; // Assigning the value of `risk` to a variable called `myRiskVariable`
             sendRisk(risk);
             return (
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "#6d597a",
-                  fontSize: 25,
-                  fontWeight: "bold",
-                  marginBottom: 8,
-                }}
-                key={i}
-              >
-                Dispersion Risk Level : {risk}
-              </Text>
+              <View style={styles.txtContainer}>
+                <Text style={styles.textIdentification} key={i}>
+                  Dispersion Risk Level :{" "}
+                </Text>
+
+                <Text style={styles.textIdentification1}>{risk}</Text>
+              </View>
             );
           })
         )}
@@ -181,7 +176,8 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    height: 550,
+    height: "100%",
+    // width:
     marginVertical: 0,
     width: SCREEN_WIDTH,
     paddingBottom: 0,
@@ -245,5 +241,20 @@ const styles = StyleSheet.create({
   colorIndicatorCol: {
     flexDirection: "column",
     alignItems: "center",
+  },
+  txtContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignSelf: "center",
+    marginVertical: "2%",
+  },
+
+  textIdentification: {
+    fontSize: 20,
+  },
+  textIdentification1: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "red",
   },
 });
