@@ -192,14 +192,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     elevation: 0,
-    opacity: 0.8,
     borderColor: "3085E22",
     borderWidth: 1,
   },
   inputInside: {
     paddingLeft: 10,
     width: width,
-    opacity: 1,
   },
   textInputContainer: {
     width: "90%",
@@ -209,7 +207,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginHorizontal: "2%",
     borderRadius: 10,
-    opacity: 0.6,
   },
   backgroundImage: {
     flex: 1,
