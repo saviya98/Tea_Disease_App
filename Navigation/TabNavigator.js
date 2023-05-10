@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../components/Home";
 import Dashboard from "../components/Dashboard";
 import TabBar from "../components/TabBar";
+import OpenCamera from "../components/OpenCamera";
 //invoke navigation function. it will return a component
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Camera"
-        component={Dashboard}
+        component={OpenCamera}
         initialParams={{ icon: "camera" }}
         options={{ headerShown: false }}
       />
