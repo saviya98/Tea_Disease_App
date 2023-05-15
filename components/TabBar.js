@@ -12,7 +12,7 @@ const TabBar = ({ state, navigation }) => {
 
   const renderColors = (currentTab) => {
     //console.log("currentTab", currentTab, selected);
-    currentTab === selected ? "#F1F6FB" : "black";
+    currentTab === selected ? "#F1F6FB" : "green";
   };
 
   //console.log('',state.index);
