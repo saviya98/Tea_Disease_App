@@ -36,7 +36,11 @@ const TabNavigator = () => {
         name="Profile"
         component={Profile}
         initialParams={{ icon: "user" }}
-        options={{ headerShown: false }}
+        options={{
+          title: "Profile",
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: "#085E22" },
+        }}
       />
     </Tab.Navigator>
   );
