@@ -161,7 +161,7 @@ const BlisterSample = () => {
 
         <View style={styles.imageContainer}>
           <Image
-            source={require("../assets/loginbac.jpg")}
+            source={require("../assets/instructions.jpeg")}
             style={styles.image}
           />
         </View>
@@ -196,6 +196,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "80%",
     borderRadius: 9,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
   },
   btnContainer: {
     width: "100%",
@@ -205,8 +208,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: "97%",
+    height: "80%",
     borderRadius: 9,
   },
   btn: {

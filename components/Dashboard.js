@@ -18,7 +18,6 @@ import CultivarScreen from "./Cultivar";
 const Stack = createStackNavigator();
 
 const headerStyle = {
-  height: 100,
   backgroundColor: "#085E22",
   shadowColor: "#000",
   elevation: 25,
@@ -92,19 +91,11 @@ const Dashboard = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Dashboard"
         component={HomeScreen}
         options={{
           headerStyle,
           headerTintColor: "white",
-          headerRight: () => (
-            <TouchableOpacity
-              style={styles.logout}
-              onPress={() => firebase.auth().signOut()}
-            >
-              <Text style={{ color: "white" }}>Logout</Text>
-            </TouchableOpacity>
-          ),
         }}
       />
       <Stack.Screen

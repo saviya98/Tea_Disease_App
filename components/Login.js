@@ -13,6 +13,7 @@ import { firebase } from "../global/firebase";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar, Button } from "react-native-paper";
+import AppLoader from "./AppLoader";
 
 const { height, width } = Dimensions.get("window");
 
@@ -20,6 +21,7 @@ const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginUser = async (email, password) => {
     try {
