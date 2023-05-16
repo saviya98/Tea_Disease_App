@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   textInputContainer: {
     width: "90%",
-    height: "27%",
+    height: "30%",
     marginTop: "10%",
     justifyContent: "center",
     backgroundColor: "white",

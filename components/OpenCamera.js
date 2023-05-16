@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from "react-native";
 import Constants from "expo-constants";
 import { Camera, CameraType } from "expo-camera";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "./Button";
+const { height, width } = Dimensions.get("window");
 
 const OpenCamera = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -91,7 +99,6 @@ const OpenCamera = () => {
               onPress={() => setImage(null)}
               icon="retweet"
             />
-            <Button title="Save" onPress={savePicture} icon="check" />
           </View>
         ) : (
           <Button title="Take a picture" onPress={takePicture} icon="camera" />
@@ -110,6 +117,7 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#000",
     padding: 8,
+    marginBottom: height / 10,
   },
   controls: {
     flex: 0.5,

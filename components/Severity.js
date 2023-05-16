@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, Button, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from "react-native";
 import {
   SafeAreaView,
   SafeAreaProvider,
@@ -11,6 +18,7 @@ import {
 import { COLORS, FONTS, SIZES, icons, images } from "../constants";
 import { firebase } from "../global/firebase";
 import AppLoader from "./AppLoader";
+const { height, width } = Dimensions.get("window");
 
 const Severity = ({ navigation }) => {
   const [imageURL, setImageURL] = useState("");
@@ -37,7 +45,7 @@ const Severity = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.imageContainer}>
         {imageURL ? (
           <Image source={{ uri: imageURL }} style={styles.image} />
@@ -60,6 +68,12 @@ const Severity = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: width / 23,
+    paddingTop: height / 60,
+  },
   image: {
     width: 300,
     height: 400,

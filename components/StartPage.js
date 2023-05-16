@@ -1,5 +1,7 @@
 import {
   Dimensions,
+  Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,66 +14,62 @@ const { height, width } = Dimensions.get("window");
 
 const StartPage = ({ navigation, route }) => {
   return (
-    <View style={styles.startPageCon}>
+    <View style={styles.container}>
       <View style={styles.startPageTop}>
-        <Avatar.Image
-          source={require("../assets/logo.png")}
-          size={400}
-          style={styles.image}
-        />
+        <View
+          style={{
+            width: "50%",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <Text style={styles.topicTxtfront}>Welcome to</Text>
+
+          <Text style={styles.topicTxt}>BB-RELIEF</Text>
+        </View>
+        <View style={{ width: "50%" }}>
+          <Image source={require("../assets/logo.png")} style={styles.image} />
+        </View>
       </View>
 
-      <View style={styles.startPageBot}>
-        <View style={styles.bottomTopic}>
-          <View style={styles.container}>
-            <View style={styles.txtCon}>
-              <View
-                style={{
-                  width: "40%",
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={styles.topicTxtfront}>Welcome to</Text>
-              </View>
-              <View
-                style={{
-                  width: "60%",
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={styles.topicTxt}>BB-RELIEF</Text>
-              </View>
-            </View>
-          </View>
+      <View style={styles.bottomTxt}>
+        <View style={styles.bodyTxtCon}>
+          <ScrollView>
+            <Text style={styles.bodyTxt}>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book.Lorem Ipsum has
+              been the industry's standard dummy text ever since the 1500s, when
+              an unknown printer took a galley of type and scrambled it to make
+              a type specimen book
+            </Text>
+          </ScrollView>
         </View>
-        <View style={styles.bottomTxt}>
-          <View style={styles.container}>
-            <View style={styles.bodyTxtCon}>
-              <Text style={styles.bodyTxt}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.Lorem
-                Ipsum has been the industry's standard dummy text ever since the
-                1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book
-              </Text>
-            </View>
-            <View style={styles.bodyNextCon}>
-              <TouchableOpacity onPress={() => navigation.navigate("Dash")}>
-                <Text
-                  style={{
-                    fontSize: 23,
-                    fontWeight: "bold",
-                    textAlign: "right",
-                    color: "#062b10",
-                  }}
-                >
-                  Let's Start
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View style={styles.bodyNextCon}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Dash")}
+            style={{
+              borderRadius: 10,
+              borderWidth: 1,
+              borderColor: "#085E22",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingVertical: "2%",
+              elevation: 20,
+              backgroundColor: "#085E22",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 23,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              Let's Start
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -85,49 +83,46 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: width / 23,
     paddingTop: height / 60,
+    marginBottom: height / 7,
   },
   startPageCon: {
-    backgroundColor: "#085E22",
     width: "100%",
     height: "100%",
   },
   startPageTop: {
     width: "100%",
-    height: "30%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
   },
   startPageBot: {
-    backgroundColor: "white",
+    backgroundColor: "green",
     width: "100%",
-    height: "70%",
-    borderTopEndRadius: 30,
-    borderTopLeftRadius: 30,
+    height: "60%",
   },
   image: {
-    backgroundColor: "#085E22",
+    width: "100%",
+    height: "100%",
   },
   bottomTopic: {
     width: "100%",
-    backgroundColor: "black",
     height: "15%",
     borderTopEndRadius: 30,
     borderTopLeftRadius: 30,
   },
   bottomTxt: {
     width: "100%",
-    height: "85%",
+    height: "75%",
   },
   topicTxt: {
-    color: "white",
+    color: "black",
     fontSize: 30,
     fontWeight: "bold",
-    marginLeft: "7%",
   },
   topicTxtfront: {
     color: "gray",
     fontSize: 20,
-    textAlign: "right",
   },
   txtCon: {
     flexDirection: "row",
@@ -140,7 +135,7 @@ const styles = StyleSheet.create({
   },
   bodyTxtCon: {
     width: "100%",
-    height: "65%",
+    height: "60%",
   },
   bodyNextCon: {
     width: "100%",
@@ -149,5 +144,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: width / 23,
     paddingTop: height / 60,
+    justifyContent: "center",
   },
 });

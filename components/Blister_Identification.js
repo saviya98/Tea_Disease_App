@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Modal,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
@@ -15,6 +17,8 @@ import Cultivar from "./Cultivar";
 import ImageViewer from "./ImageViewer";
 import { Camera, CameraType } from "expo-camera";
 import Constants from "expo-constants";
+import { MaterialIcons } from "@expo/vector-icons";
+import AppLoader from "./AppLoader";
 
 const PlaceholderImage = require("../assets/upload-image.png");
 const { height, width } = Dimensions.get("window");
@@ -34,6 +38,9 @@ const Blister_Identification = ({ navigation }) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
+
+  const [isShow, setIsShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -63,6 +70,7 @@ const Blister_Identification = ({ navigation }) => {
   }
 
   const pickImage = async () => {
+    setIsLoading(true);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -78,7 +86,7 @@ const Blister_Identification = ({ navigation }) => {
         type: "image/jpeg",
       });
       axios
-        .post("http://192.168.1.7:3009/getCultivar", formData, {
+        .post("http://192.168.1.21:3009/getCultivar", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -90,12 +98,16 @@ const Blister_Identification = ({ navigation }) => {
           setCultivar(response.data.Cultivar[0]);
 
           console.log("Cultivar -> ", response.data.Cultivar[0]);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false);
         });
+      setIsLoading(true);
+
       axios
-        .post("http://192.168.1.7:3009/getBlister", formData, {
+        .post("http://192.168.1.21:3009/getBlister", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -107,9 +119,11 @@ const Blister_Identification = ({ navigation }) => {
           setBlister(response2.data.Blister[0]);
 
           console.log("Blister -> ", response2.data.Blister[0]);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false);
         });
 
       //  // Create a reference to the Firebase Storage bucket
@@ -184,81 +198,99 @@ const Blister_Identification = ({ navigation }) => {
     return <Text>No access to Internal Storage</Text>;
   }
 
-  const takeLivePicture = () => {
-    <View style={styles.cameraContainer}>
-      {!imageCapture ? (
-        <Camera
-          style={styles.camera}
-          type={type}
-          ref={cameraRef}
-          flashMode={flash}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 30,
-            }}
-          >
-            <Button
-              title=""
-              icon="retweet"
-              onPress={() => {
-                setType(
-                  type === CameraType.back ? CameraType.front : CameraType.back
-                );
-              }}
-            />
-            <Button
-              onPress={() =>
-                setFlash(
-                  flash === Camera.Constants.FlashMode.off
-                    ? Camera.Constants.FlashMode.on
-                    : Camera.Constants.FlashMode.off
-                )
-              }
-              icon="flash"
-              color={flash === Camera.Constants.FlashMode.off ? "gray" : "#fff"}
-            />
-          </View>
-        </Camera>
-      ) : (
-        <image source={{ uri: imageCapture }} style={styles.camera} />
-      )}
-
-      <View style={styles.controls}>
-        {imageCapture ? (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 50,
-            }}
-          >
-            <Button
-              title="Re-take"
-              onPress={() => setImageCapture(null)}
-              icon="retweet"
-            />
-            <Button title="Save" onPress={savePicture} icon="check" />
-          </View>
-        ) : (
-          <Button title="Take a picture" onPress={takePicture} icon="camera" />
-        )}
-      </View>
-    </View>;
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <ImageViewer
-          placeholderImageSource={PlaceholderImage}
-          selectedImage={image}
-        />
+        {isShow ? (
+          <View style={styles.cameraContainer}>
+            <Camera
+              style={styles.camera}
+              type={type}
+              ref={cameraRef}
+              flashMode={flash}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 30,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    setType(
+                      type === CameraType.back
+                        ? CameraType.front
+                        : CameraType.back
+                    );
+                  }}
+                >
+                  <MaterialIcons name="360" size={30} />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    setFlash(
+                      flash === Camera.Constants.FlashMode.off
+                        ? Camera.Constants.FlashMode.on
+                        : Camera.Constants.FlashMode.off
+                    )
+                  }
+                >
+                  <MaterialIcons
+                    name="flash-on"
+                    color={
+                      flash === Camera.Constants.FlashMode.off ? "gray" : "#fff"
+                    }
+                    size={30}
+                  />
+                </TouchableOpacity>
+              </View>
+            </Camera>
+
+            <View style={styles.controls}>
+              {image ? (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    paddingHorizontal: 50,
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => setImage(null)}
+                    style={{ flexDirection: "row" }}
+                  >
+                    <MaterialIcons
+                      name="repeat"
+                      onPress={() => setImage(null)}
+                      size={20}
+                      color={"white"}
+                    />
+                    <Text style={{ color: "white" }}>Re-Take</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  onPress={takePicture}
+                  icon="camera"
+                  style={{ flexDirection: "row", justifyContent: "center" }}
+                >
+                  <MaterialIcons name="camera" size={20} color={"white"} />
+                  <Text style={{ color: "white" }}>Take a picture</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        ) : (
+          <ImageViewer
+            placeholderImageSource={PlaceholderImage}
+            selectedImage={image}
+          />
+        )}
       </View>
       <View style={styles.btnContainer}>
-        <TouchableOpacity onPress={() => takeLivePicture()} style={styles.btn}>
+        <TouchableOpacity onPress={() => setIsShow(true)} style={styles.btn}>
           <Text style={styles.btnTxt}>Take a Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => pickImage()} style={styles.btn}>
@@ -268,7 +300,7 @@ const Blister_Identification = ({ navigation }) => {
       {image ? (
         <View style={styles.infoContainer}>
           <View style={styles.txtContainer}>
-            {image && <Text style={styles.textIdentification}>Blister: </Text>}
+            {image && <Text style={styles.textIdentification}>Blister : </Text>}
 
             {image && (
               <Text style={styles.textIdentification1}>Blister Identified</Text>
@@ -325,6 +357,7 @@ const Blister_Identification = ({ navigation }) => {
           </View>
         )}
       </View>
+      {isLoading ? <AppLoader /> : null}
     </View>
 
     // <View style={{ paddingHorizontal: SIZES.padding, paddingVertical: SIZES.padding, backgroundColor: COLORS.white }}>
@@ -372,6 +405,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     paddingTop: 20,
     marginBottom: -15,
+    width: "100%",
+    height: "44%",
   },
   footerContainer: {
     flex: 1 / 3,
@@ -387,8 +422,8 @@ const styles = StyleSheet.create({
   },
   txtContainer: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignSelf: "center",
+    width: "100%",
+    paddingLeft: "6%",
   },
 
   btn: {
@@ -418,6 +453,7 @@ const styles = StyleSheet.create({
   textIdentification: {
     fontSize: 20,
     color: "white",
+    textAlign: "left",
   },
   textIdentification1: {
     fontSize: 20,
@@ -441,11 +477,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cameraContainer: {
-    flex: 1,
     justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: "#000",
     padding: 8,
+    width: "100%",
+    height: "100%",
   },
   camera: {
     flex: 5,
@@ -455,10 +491,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   controls: {
-    flex: 0.5,
+    flex: 0.7,
   },
   button: {
-    height: 40,
+    height: "8%",
     borderRadius: 6,
     flexDirection: "row",
     alignItems: "center",
