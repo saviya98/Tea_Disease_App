@@ -10,16 +10,20 @@ import {
 
 import { COLORS, FONTS, SIZES, icons, images } from "../constants";
 import { firebase } from "../global/firebase";
+import AppLoader from "./AppLoader";
 
 const Severity = ({ navigation }) => {
   const [imageURL, setImageURL] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getImageURL = async () => {
+      setIsLoading(true);
       const imageRef = firebase.firestore().collection("severity").doc("s1");
       const imageDoc = await imageRef.get();
       const imageURL = imageDoc.data().sev_img3;
       setImageURL(imageURL);
+      setIsLoading(false);
     };
     getImageURL();
   }, []);
@@ -50,6 +54,7 @@ const Severity = ({ navigation }) => {
           <Text style={styles.textIdentification1}>Blister Stage</Text>
         )}
       </View>
+      {isLoading ? <AppLoader /> : null}
     </View>
   );
 };

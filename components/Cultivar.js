@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import { firebase } from "../global/firebase";
 import * as Notifications from "expo-notifications";
+import AppLoader from "./AppLoader";
 
 const Cultivar = () => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -14,6 +15,7 @@ const Cultivar = () => {
 
   const [blisterData, setBlisterData] = useState(null);
   const [blister, setBlister] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -169,6 +171,7 @@ const Cultivar = () => {
           </Text>
         )}
       </View>
+      {isLoading ? <AppLoader /> : null}
     </View>
   );
 };

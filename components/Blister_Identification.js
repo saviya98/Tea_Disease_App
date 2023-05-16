@@ -13,6 +13,8 @@ import axios from "axios";
 import { COLORS, FONTS, SIZES, icons, images } from "../constants";
 import Cultivar from "./Cultivar";
 import ImageViewer from "./ImageViewer";
+import { Camera, CameraType } from "expo-camera";
+import Constants from "expo-constants";
 
 const PlaceholderImage = require("../assets/upload-image.png");
 const { height, width } = Dimensions.get("window");
@@ -27,13 +29,38 @@ const Blister_Identification = ({ navigation }) => {
   const [blisterData, setBlisterData] = useState(null);
   const [blister, setBlister] = useState(null);
 
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [imageCapture, setImageCapture] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const cameraRef = useRef(null);
+
   useEffect(() => {
     (async () => {
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === "granted");
+
       const galleryStatus =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       setHasGalleryPermission(galleryStatus.status === "granted");
     })();
   }, []);
+
+  const takePicture = async () => {
+    if (cameraRef) {
+      try {
+        const data = await cameraRef.current.takePictureAsync();
+        console.log(data);
+        setImage(data.uri);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  if (hasCameraPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -156,6 +183,72 @@ const Blister_Identification = ({ navigation }) => {
   if (hasGalleryPermission === false) {
     return <Text>No access to Internal Storage</Text>;
   }
+
+  const takeLivePicture = () => {
+    <View style={styles.cameraContainer}>
+      {!imageCapture ? (
+        <Camera
+          style={styles.camera}
+          type={type}
+          ref={cameraRef}
+          flashMode={flash}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 30,
+            }}
+          >
+            <Button
+              title=""
+              icon="retweet"
+              onPress={() => {
+                setType(
+                  type === CameraType.back ? CameraType.front : CameraType.back
+                );
+              }}
+            />
+            <Button
+              onPress={() =>
+                setFlash(
+                  flash === Camera.Constants.FlashMode.off
+                    ? Camera.Constants.FlashMode.on
+                    : Camera.Constants.FlashMode.off
+                )
+              }
+              icon="flash"
+              color={flash === Camera.Constants.FlashMode.off ? "gray" : "#fff"}
+            />
+          </View>
+        </Camera>
+      ) : (
+        <image source={{ uri: imageCapture }} style={styles.camera} />
+      )}
+
+      <View style={styles.controls}>
+        {imageCapture ? (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 50,
+            }}
+          >
+            <Button
+              title="Re-take"
+              onPress={() => setImageCapture(null)}
+              icon="retweet"
+            />
+            <Button title="Save" onPress={savePicture} icon="check" />
+          </View>
+        ) : (
+          <Button title="Take a picture" onPress={takePicture} icon="camera" />
+        )}
+      </View>
+    </View>;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -165,7 +258,7 @@ const Blister_Identification = ({ navigation }) => {
         />
       </View>
       <View style={styles.btnContainer}>
-        <TouchableOpacity onPress={() => pickImage()} style={styles.btn}>
+        <TouchableOpacity onPress={() => takeLivePicture()} style={styles.btn}>
           <Text style={styles.btnTxt}>Take a Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => pickImage()} style={styles.btn}>
@@ -346,6 +439,30 @@ const styles = StyleSheet.create({
     height: "10%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  cameraContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#000",
+    padding: 8,
+  },
+  camera: {
+    flex: 5,
+    borderRadius: 20,
+  },
+  topControls: {
+    flex: 1,
+  },
+  controls: {
+    flex: 0.5,
+  },
+  button: {
+    height: 40,
+    borderRadius: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 export default Blister_Identification;
