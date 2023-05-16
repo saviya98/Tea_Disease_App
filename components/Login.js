@@ -25,8 +25,12 @@ const Login = () => {
 
   const loginUser = async (email, password) => {
     try {
+      setIsLoading(true);
       await firebase.auth().signInWithEmailAndPassword(email.trim(), password);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
+
       alert(error.message);
     }
   };
@@ -87,6 +91,7 @@ const Login = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      {isLoading ? <AppLoader /> : null}
     </View>
   );
 };

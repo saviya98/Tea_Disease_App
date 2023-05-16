@@ -13,6 +13,7 @@ import { firebase } from "../global/firebase";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar, Button } from "react-native-paper";
+import AppLoader from "./AppLoader";
 
 const { height, width } = Dimensions.get("window");
 
@@ -24,6 +25,7 @@ const Registration = () => {
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerUser = async (
     email,
@@ -34,7 +36,9 @@ const Registration = () => {
     address
   ) => {
     try {
+      setIsLoading(true);
       // await firebase.auth().signInWithEmailAndPassword(email.trim(), password);
+      setIsLoading(false);
     } catch (error) {
       alert(error.message);
     }
@@ -142,6 +146,7 @@ const Registration = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      {isLoading ? <AppLoader /> : null}
     </View>
   );
 };

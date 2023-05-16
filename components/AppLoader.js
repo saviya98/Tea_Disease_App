@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import LottieView from "lottie-react-native";
 
 const AppLoader = () => {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.container]} acc>
-      <LottieView source={require("../assets/loader.json")} autoPlay loop />
+      <ActivityIndicator size={"large"} />
     </View>
   );
 };

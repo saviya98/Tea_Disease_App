@@ -28,7 +28,6 @@
     "firebase": "^9.17.1",
     "geolib": "^3.3.3",
     "keras": "^1.0.1",
-    "lottie-react-native": "5.1.4",
     "native-notify": "^3.0.4",
     "react": "18.1.0",
     "react-native": "0.70.5",

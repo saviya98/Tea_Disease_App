@@ -21,15 +21,22 @@ import * as Location from "expo-location";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as geolib from "geolib";
 import { firebase } from "../global/firebase";
+import AppLoader from "./AppLoader";
 // import db from '../db/firestore';
 
 const DispersionPattern = () => {
   const [riskCal, setRiskCal] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch("http://192.168.1.21:3009/risk")
-      .then((res) => res.json())
+      .then((res) => {
+        res.json();
+        setIsLoading(false);
+      })
       .then((riskCal) => {
+        setIsLoading(false);
         setRiskCal(riskCal);
         console.log(riskCal);
       });
@@ -53,13 +60,18 @@ const DispersionPattern = () => {
   //get device's location data
   const getLocation = async () => {
     try {
+      setIsLoading(true);
+
       const { granted } = await Location.requestForegroundPermissionsAsync();
       if (!granted) return;
       const {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
       setLocation({ latitude, longitude });
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
+
       // Handle the error here
     }
   };
@@ -75,7 +87,10 @@ const DispersionPattern = () => {
 
   //fucntion to get current location
   const useCurrentLocation = async () => {
+    setIsLoading(true);
     let current_location = await Location.getCurrentPositionAsync({});
+    setIsLoading(false);
+
     return current_location.coords;
   };
 
@@ -92,10 +107,13 @@ const DispersionPattern = () => {
 
   // save the risk to the firestore
   sendRisk = (risk_passed) => {
+    setIsLoading(true);
+
     const db = firebase.firestore();
     db.collection("blisterAround").doc("GW3R012XPiV1LVXXFR1q").update({
       risk: risk_passed,
     });
+    setIsLoading(false);
   };
   return (
     <>
@@ -154,6 +172,7 @@ const DispersionPattern = () => {
                     )} */}
         </MapView>
       </View>
+      {isLoading ? <AppLoader /> : null}
     </>
   );
 };
