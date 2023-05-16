@@ -4,7 +4,6 @@ import Home from "../components/Home";
 import Dashboard from "../components/Dashboard";
 import TabBar from "../components/TabBar";
 import OpenCamera from "../components/OpenCamera";
-import StartPage from "../components/StartPage";
 import Profile from "../components/Profile";
 import StartPageNavigation from "./StartPageNavigation";
 //invoke navigation function. it will return a component

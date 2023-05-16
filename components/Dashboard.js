@@ -19,8 +19,6 @@ const Stack = createStackNavigator();
 
 const headerStyle = {
   backgroundColor: "#085E22",
-  shadowColor: "#000",
-  elevation: 25,
 };
 
 console.disableYellowBox = true;
@@ -149,15 +147,4 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingBottom: 0,
-    paddingTop: 0,
-  },
-  logout: {
-    marginRight: "5%",
-  },
-});
+const styles = StyleSheet.create({});

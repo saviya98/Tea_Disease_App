@@ -141,7 +141,6 @@ const Blister_Map_Near = () => {
           ))}
         </MapView>
       </View>
-      <StatusBar style="light" backgroundColor="#2058c0" translucent={true} />
 
       {/* add a risk level card for better user experience */}
       <View style={styles.colorIndicatorContainer}>
@@ -187,12 +186,6 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     // paddingTop:parameters.statusBarHeight
   },
-  header: {
-    backgroundColor: "#085E22",
-    height: parameters.headerHeight,
-    alignItems: "flex-start",
-  },
-
   map: {
     height: 720,
     marginVertical: 0,

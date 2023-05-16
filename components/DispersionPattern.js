@@ -169,12 +169,6 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     // paddingTop:parameters.statusBarHeight
   },
-  header: {
-    backgroundColor: "#085E22",
-    height: parameters.headerHeight,
-    alignItems: "flex-start",
-  },
-
   map: {
     height: "100%",
     // width:
