@@ -67,7 +67,7 @@ const StartPage = ({ navigation, route }) => {
                     color: "#062b10",
                   }}
                 >
-                  Lets Start
+                  Let's Start
                 </Text>
               </TouchableOpacity>
             </View>

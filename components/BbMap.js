@@ -7,6 +7,7 @@ import {
   Text,
   Button,
   Image,
+  ScrollView,
 } from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -151,7 +152,9 @@ const BbMap = ({ navigation }) => {
     <View>
       {/* menu bar */}
       <View style={styles.container}>
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
           <MapView
             ref={mapRef}
             provider={PROVIDER_GOOGLE}
@@ -200,10 +203,13 @@ const BbMap = ({ navigation }) => {
         onPress={() => navigation.navigate("Blister Emergence Date")}
         style={{
           alignSelf: "center",
-          marginTop: "125%",
+          marginTop: "130%",
           borderColor: "#085E22",
           borderWidth: 1,
           borderRadius: 9,
+          position: "relative",
+          elevation: 9,
+          backgroundColor: "white",
         }}
       >
         <Text style={{ padding: "2%", fontWeight: "bold", color: "#085E22" }}>
@@ -219,16 +225,9 @@ export default BbMap;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
     paddingHorizontal: width / 23,
     paddingTop: height / 60,
   },
-  header: {
-    backgroundColor: "#085E22",
-    height: parameters.headerHeight,
-    alignItems: "flex-start",
-  },
-
   map: {
     height: 1270,
     marginVertical: 0,

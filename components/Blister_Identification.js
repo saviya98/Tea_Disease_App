@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
@@ -14,6 +15,7 @@ import Cultivar from "./Cultivar";
 import ImageViewer from "./ImageViewer";
 
 const PlaceholderImage = require("../assets/upload-image.png");
+const { height, width } = Dimensions.get("window");
 
 const Blister_Identification = ({ navigation }) => {
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -24,7 +26,6 @@ const Blister_Identification = ({ navigation }) => {
 
   const [blisterData, setBlisterData] = useState(null);
   const [blister, setBlister] = useState(null);
-
 
   useEffect(() => {
     (async () => {
@@ -171,28 +172,66 @@ const Blister_Identification = ({ navigation }) => {
           <Text style={styles.btnTxt}>Upload a Photo</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.txtContainer}>{image && <Text style={styles.textIdentification}>Blister: </Text>}
-      
-      {image && <Text style={styles.textIdentification1}>Blister Identified</Text>}</View>
+      {image ? (
+        <View style={styles.infoContainer}>
+          <View style={styles.txtContainer}>
+            {image && <Text style={styles.textIdentification}>Blister: </Text>}
 
-      <View style={styles.txtContainer}>
-        {image && <Text style={styles.textIdentification}>Cultivar: </Text>}
-        
-        {image && <Text style={styles.textIdentification1}>{cultivar}</Text>}
-      </View>
-      <View >
-        {image && <TouchableOpacity onPress={() =>
+            {image && (
+              <Text style={styles.textIdentification1}>Blister Identified</Text>
+            )}
+          </View>
+
+          <View style={styles.txtContainer}>
+            {image && <Text style={styles.textIdentification}>Cultivar: </Text>}
+
+            {image && (
+              <Text style={styles.textIdentification1}>{cultivar}</Text>
+            )}
+          </View>
+        </View>
+      ) : null}
+
+      <View style={styles.bottomBtnCon}>
+        {image && (
+          <View
+            style={{
+              width: "47%",
+              height: "100%",
+              alignItems: "center",
+              alignContent: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() =>
                 navigation.navigate("Severity Symptom Identification")
-              } style={styles.btn1}>
-          <Text style={styles.btnTxt1}>Severity Symptom Identification</Text>
-        </TouchableOpacity>}
-        {image && <TouchableOpacity onPress={() =>
-                navigation.navigate("Dispersion Pattern")
-              } style={styles.btn1}>
-          <Text style={styles.btnTxt1}>Blister Dispersion</Text>
-        </TouchableOpacity>}
+              }
+              style={styles.btn1}
+            >
+              <Text style={styles.btnTxt1}>
+                Severity Symptom Identification
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {image && (
+          <View
+            style={{
+              width: "47%",
+              height: "100%",
+              alignItems: "center",
+              alignContent: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Dispersion Pattern")}
+              style={styles.btn1}
+            >
+              <Text style={styles.btnTxt1}>Blister Dispersion</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-      
     </View>
 
     // <View style={{ paddingHorizontal: SIZES.padding, paddingVertical: SIZES.padding, backgroundColor: COLORS.white }}>
@@ -224,13 +263,6 @@ const Blister_Identification = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
-  header: {
-    alignContent: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    color: COLORS.primary,
-    paddingTop: 20,
-  },
   headerText: {
     fontSize: 20,
     alignContent: "center",
@@ -241,6 +273,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    paddingHorizontal: width / 23,
+    paddingTop: height / 60,
   },
   imageContainer: {
     paddingTop: 20,
@@ -256,9 +290,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignSelf: "center",
-    marginBottom:"-3%"
+    marginBottom: "-3%",
   },
-  txtContainer:{
+  txtContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignSelf: "center",
@@ -276,17 +310,42 @@ const styles = StyleSheet.create({
     borderColor: "#085E22",
     borderWidth: 1,
     borderRadius: 9,
-    padding:2,
-    marginBottom:"1%",
-    marginTop:"2%"
+    marginBottom: "1%",
+    marginTop: "2%",
+    height: "100%",
+    justifyContent: "center",
   },
-  btnTxt1: { paddingHorizontal: "5%", fontWeight: "bold", color: "#085E22", fontSize: 15 },
-  textIdentification:{
-    fontSize: 20
+  btnTxt1: {
+    paddingHorizontal: "5%",
+    fontWeight: "bold",
+    color: "#085E22",
+    fontSize: 15,
+    textAlign: "center",
   },
-  textIdentification1:{
+  textIdentification: {
     fontSize: 20,
-    fontWeight:"bold"
-  }
+    color: "white",
+  },
+  textIdentification1: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+  },
+  infoContainer: {
+    width: "70%",
+    height: "12%",
+    backgroundColor: "#ad2402",
+    paddingVertical: "2%",
+    borderRadius: 10,
+    elevation: 20,
+  },
+  bottomBtnCon: {
+    flexDirection: "row",
+    width: "100%",
+    marginTop: "8%",
+    height: "10%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 export default Blister_Identification;

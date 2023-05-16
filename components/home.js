@@ -30,7 +30,7 @@ const ButtonDetails = [
   },
   {
     id: 2,
-    title: "Blister identified near locations",
+    title: "Blister identified near\nlocations",
     location: "Blister Map(Near locations)",
     image: require("../assets/identi.jpg"),
   },

@@ -38,4 +38,8 @@ const StartPageNavigation = () => {
 
 export default StartPageNavigation;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  logout: {
+    marginRight: "5%",
+  },
+});
