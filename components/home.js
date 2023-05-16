@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 9,
-    backgroundColor: "red",
     marginBottom: "3%",
     justifyContent: "center",
     alignContent: "center",
