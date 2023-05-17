@@ -27,14 +27,15 @@ import AppLoader from "./AppLoader";
 const DispersionPattern = () => {
   const [riskCal, setRiskCal] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://192.168.1.21:3009/risk").then((riskCal) => {
-      setIsLoading(false);
-      setRiskCal(riskCal);
-      console.log(riskCal);
-    });
+    fetch("http://192.168.1.21:3009/risk")
+      .then((res) => res.json())
+      .then((riskCal) => {
+        setRiskCal(riskCal);
+        console.log(riskCal);
+        setIsLoading(false);
+      });
   }, []);
 
   //get user permission to access device location data
@@ -55,18 +56,13 @@ const DispersionPattern = () => {
   //get device's location data
   const getLocation = async () => {
     try {
-      setIsLoading(true);
-
       const { granted } = await Location.requestForegroundPermissionsAsync();
       if (!granted) return;
       const {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
       setLocation({ latitude, longitude });
-      setIsLoading(false);
     } catch (err) {
-      setIsLoading(false);
-
       // Handle the error here
     }
   };
@@ -82,10 +78,7 @@ const DispersionPattern = () => {
 
   //fucntion to get current location
   const useCurrentLocation = async () => {
-    setIsLoading(true);
     let current_location = await Location.getCurrentPositionAsync({});
-    setIsLoading(false);
-
     return current_location.coords;
   };
 
@@ -102,16 +95,13 @@ const DispersionPattern = () => {
 
   // save the risk to the firestore
   sendRisk = (risk_passed) => {
-    setIsLoading(true);
-
     const db = firebase.firestore();
     db.collection("blisterAround").doc("GW3R012XPiV1LVXXFR1q").update({
       risk: risk_passed,
     });
-    setIsLoading(false);
   };
   return (
-    <>
+    <View>
       <View>
         {typeof riskCal.risk === "undefined" ? (
           <Text>Loading...</Text>
@@ -120,8 +110,8 @@ const DispersionPattern = () => {
             const myRiskVariable = risk; // Assigning the value of `risk` to a variable called `myRiskVariable`
             sendRisk(risk);
             return (
-              <View style={styles.txtContainer}>
-                <Text style={styles.textIdentification} key={i}>
+              <View style={styles.txtContainer} key={i}>
+                <Text style={styles.textIdentification}>
                   Dispersion Risk Level :{" "}
                 </Text>
 
@@ -168,7 +158,7 @@ const DispersionPattern = () => {
         </MapView>
       </View>
       {isLoading ? <AppLoader /> : null}
-    </>
+    </View>
   );
 };
 // console.log()
