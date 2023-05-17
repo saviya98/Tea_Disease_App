@@ -30,16 +30,11 @@ const DispersionPattern = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://192.168.1.21:3009/risk")
-      .then((res) => {
-        res.json();
-        setIsLoading(false);
-      })
-      .then((riskCal) => {
-        setIsLoading(false);
-        setRiskCal(riskCal);
-        console.log(riskCal);
-      });
+    fetch("http://192.168.1.21:3009/risk").then((riskCal) => {
+      setIsLoading(false);
+      setRiskCal(riskCal);
+      console.log(riskCal);
+    });
   }, []);
 
   //get user permission to access device location data
